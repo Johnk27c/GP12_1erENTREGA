@@ -85,7 +85,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "IdAlumno=" + IdAlumno + ", apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni + ", fechaNac=" + fechaNac + ", estado=" + estado + '}';
+        return "Id: " + IdAlumno + ", " + apellido + ", " + nombre + ", dni: " + dni ;
     }
 
     
