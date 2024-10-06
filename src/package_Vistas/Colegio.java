@@ -1,4 +1,4 @@
-package colegio;
+package package_Vistas;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import package_Modelo.Alumno;
 import package_Persistencia.AlumnoData;
-import package_Persistencia.Conexion;
+import package_Modelo.Conexion;
 
 /**
  *

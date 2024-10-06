@@ -1,5 +1,6 @@
 package package_Persistencia;
 
+import package_Modelo.Conexion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

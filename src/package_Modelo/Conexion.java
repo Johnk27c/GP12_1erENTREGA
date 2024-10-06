@@ -1,5 +1,5 @@
 
-package package_Persistencia;
+package package_Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
