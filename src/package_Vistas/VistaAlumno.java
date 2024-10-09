@@ -25,6 +25,16 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
      */
     public VistaAlumno() {
         initComponents();
+        jText_documento.setEnabled(true);
+        jText_apellido.setEnabled(false);
+        jText_nombre.setEnabled(false);
+        jRb_estado.setEnabled(false);
+        jDc_FechaNac.setEnabled(false);
+        jBt_nuevo.setEnabled(true);
+        jBt_eliminar.setEnabled(false);
+        jBt_guardar.setEnabled(false);
+        jBt_salir.setEnabled(true);
+        jBt_buscar.setEnabled(true);
     }
 
     /**
@@ -72,6 +82,11 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         });
 
         jBt_eliminar.setText("Eliminar");
+        jBt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBt_eliminarActionPerformed(evt);
+            }
+        });
 
         jBt_guardar.setText("Guardar");
         jBt_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +132,8 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBt_nuevo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jBt_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jBt_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBt_guardar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBt_salir))
@@ -194,28 +209,48 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBt_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_nuevoActionPerformed
-     limpiarCampos();
-     alumnoActual = null ;
-     
+        jText_documento.setEnabled(true);
+        jText_apellido.setEnabled(true);
+        jText_nombre.setEnabled(true);
+        jRb_estado.setEnabled(true);
+        jDc_FechaNac.setEnabled(true);
+        jBt_nuevo.setEnabled(true);
+        jBt_eliminar.setEnabled(true);
+        jBt_guardar.setEnabled(true);
+        jBt_salir.setEnabled(true);
+        jBt_buscar.setEnabled(true);
+        limpiarCampos();
+        alumnoActual = null;
+
     }//GEN-LAST:event_jBt_nuevoActionPerformed
 
     private void jBt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_buscarActionPerformed
-      try {  
-        Integer dni = Integer.parseInt(jText_documento.getText());
-        alumnoActual = aluData.buscarAlumnoporDNI(dni);
-          if (alumnoActual != null) {
-          jText_apellido.setText(alumnoActual.getApellido());
-          jText_nombre.setText(alumnoActual.getNombre());
-          jRb_estado.setSelected(alumnoActual.isEstado());
-          LocalDate lc = alumnoActual.getFechaNac();
-          java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
-          jDc_FechaNac.setDate(date);
-          }
-        
-      } catch (NumberFormatException ex){
-          JOptionPane.showMessageDialog(this, "Debe ingresar un numero valido");
-      } 
-        
+        try {
+            Integer dni = Integer.parseInt(jText_documento.getText());
+            alumnoActual = aluData.buscarAlumnoporDNI(dni);
+            if (alumnoActual != null) {
+                jText_apellido.setText(alumnoActual.getApellido());
+                jText_nombre.setText(alumnoActual.getNombre());
+                jRb_estado.setSelected(alumnoActual.isEstado());
+                LocalDate lc = alumnoActual.getFechaNac();
+                java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                jDc_FechaNac.setDate(date);
+                jText_documento.setEnabled(true);
+                jText_apellido.setEnabled(true);
+                jText_nombre.setEnabled(true);
+                jRb_estado.setEnabled(true);
+                jDc_FechaNac.setEnabled(true);
+                jBt_nuevo.setEnabled(true);
+                jBt_eliminar.setEnabled(true);
+                jBt_guardar.setEnabled(true);
+                jBt_salir.setEnabled(true);
+                jBt_buscar.setEnabled(true);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero valido");
+        }
+
     }//GEN-LAST:event_jBt_buscarActionPerformed
 
     private void jText_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText_apellidoActionPerformed
@@ -223,33 +258,57 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jText_apellidoActionPerformed
 
     private void jBt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_guardarActionPerformed
-    try{
-           Integer dni = Integer.parseInt(jText_documento.getText());
-           String nombre = jText_nombre.getText();
-           String apellido = jText_apellido.getText();
-          if (nombre.isEmpty()|| apellido.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "No debe haber campos vacios");
-            return;
+        try {
+            Integer dni = Integer.parseInt(jText_documento.getText());
+            String nombre = jText_nombre.getText();
+            String apellido = jText_apellido.getText();
+            if (nombre.isEmpty() || apellido.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacios");
+                return;
+            }
+            java.util.Date sfecha = jDc_FechaNac.getDate();
+            LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Boolean estado = jRb_estado.isSelected();
+            if (alumnoActual == null) {
+                alumnoActual = new Alumno(apellido, nombre, dni, fechaNac, estado);
+                aluData.guardarAlumno(alumnoActual);
+
+            } else {
+                alumnoActual.setDni(dni);
+                alumnoActual.setApellido(apellido);
+                alumnoActual.setNombre(nombre);
+                alumnoActual.setFechaNac(fechaNac);
+                aluData.modificarAlumno(alumnoActual);
+            }
+
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Debe ingrresar un DNI valido");
         }
-           java.util.Date sfecha = jDc_FechaNac.getDate();
-           LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-           
-    }catch(NumberFormatException nfe){
-        JOptionPane.showMessageDialog(this, "Debe ingrresar un DNI valido");
-    }
     }//GEN-LAST:event_jBt_guardarActionPerformed
 
     private void jBt_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_salirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBt_salirActionPerformed
-    private void limpiarCampos () {
-    jText_documento.setText("");
-    jText_apellido.setText("");
-    jText_nombre.setText("");
-    jRb_estado.setSelected(true);
-    jDc_FechaNac.setDate(new Date ());
-    
- }
+
+    private void jBt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_eliminarActionPerformed
+        if (alumnoActual != null) {
+            aluData.eliminarAlumno(alumnoActual.getIdAlumno());
+            alumnoActual = null;
+            limpiarCampos();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay un alumno seleccionado");
+
+        }
+    }//GEN-LAST:event_jBt_eliminarActionPerformed
+    private void limpiarCampos() {
+        jText_documento.setText("");
+        jText_apellido.setText("");
+        jText_nombre.setText("");
+        jRb_estado.setSelected(true);
+        jDc_FechaNac.setDate(new Date());
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBt_buscar;

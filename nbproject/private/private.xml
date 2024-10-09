@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/54265/Documents/NetBeansProjects/Colegio/GP12_1erENTREGA/src/package_Persistencia/Conexion.java</file>
-            <file>file:/C:/Users/54265/Documents/NetBeansProjects/Colegio/GP12_1erENTREGA/src/package_Persistencia/AlumnoData.java</file>
-            <file>file:/C:/Users/54265/Documents/NetBeansProjects/Colegio/GP12_1erENTREGA/src/colegio/Colegio.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Modelo/Alumno.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Persistencia/AlumnoData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Vistas/VistaAlumno.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Vistas/Colegio.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Modelo/Conexion.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Vistas/VistaPrincipal.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/GP12_1erENTREGA/src/package_Vistas/VistaMateria.java</file>
         </group>
     </open-files>
 </project-private>
