@@ -37,7 +37,7 @@ public class MateriaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 materia.setIdMateria(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "La materia ha sido guardada con exito.");
+                JOptionPane.showMessageDialog(null, "La materia ha sido guardada con éxito.");
             }
             ps.close();
 
@@ -47,27 +47,28 @@ public class MateriaData {
     }
     
     public void modificarMateria(Materia materia) {
-        String sql = "UPDATE materia SET nombre=?, anioMateria=?"
-                + "WHERE=?";
+        String sql = "UPDATE materia SET nombre = ?, anioMateria = ? "
+                + "WHERE idMateria = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(3, materia.getNombre());
-            ps.setInt(4, materia.getAnioMateria());           
+            ps.setString(1, materia.getNombre());
+            ps.setInt(2, materia.getAnioMateria());   
+            ps.setInt(3, materia.getIdMateria());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "El/la alumno/a ha sido modificado con éxito.");
+                JOptionPane.showMessageDialog(null, "La materia ha sido modificada con éxito.");
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno de la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia de la base de datos.");
         }
     }
     
     public void eliminarMateria(int id) {
-        String sql = "UPDATE materia SET activo=0 WHERE IdMateria=?";
+        String sql = "UPDATE materia SET activo = 0 WHERE idMateria = ?";
 
         try {
-            PreparedStatement ps = conexion.prepareCall(sql);
+            PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
             int exito = ps.executeUpdate();
             if (exito == 1) {
@@ -106,18 +107,16 @@ public class MateriaData {
     public ArrayList<Materia> mostrarMaterias() {
         ArrayList<Materia> materias = new ArrayList();
         try {
-            String sql = "SELECT IdMateria, nombre, anioMateria FROM alumno WHERE activo = 1";
+            String sql = "SELECT idMateria, nombre, anioMateria FROM materia WHERE activo = 1";
             PreparedStatement ps = conexion.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Materia materia = new Materia();
-                materia.setIdMateria(rs.getInt("IdMateria"));
+                materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnioMateria(rs.getInt("anioMateria"));
                 materia.setActivo(true);
-                
-                
                 materias.add(materia);
             }
             

@@ -8,6 +8,8 @@ import java.util.Scanner;
 import package_Modelo.Alumno;
 import package_Persistencia.AlumnoData;
 import package_Modelo.Conexion;
+import package_Modelo.Materia;
+import package_Persistencia.MateriaData;
 
 /**
  *
@@ -22,36 +24,52 @@ public class Colegio {
 
         Connection connect = Conexion.getConexion();
         AlumnoData alu = new AlumnoData();
+        MateriaData mat = new MateriaData();
 
-        Alumno alumno1 = new Alumno("Jara", "Gabriel", 34007556, LocalDate.of(1988, 9, 26), true);
-        alu.guardarAlumno(alumno1);
-        Alumno alumno2 = new Alumno("Guerrero", "Rodrigo", 23765347, LocalDate.of(2001, 9, 27), true);
-        alu.guardarAlumno(alumno2);
-        Alumno alumno3 = new Alumno("Lara", "Santiago", 42942099, LocalDate.of(2002, 4, 12), true);
-        alu.guardarAlumno(alumno3);
-        Alumno alumno4 = new Alumno("Herrera", "Franco", 46936302, LocalDate.of(2005, 11, 26), true);
-        alu.guardarAlumno(alumno4);
-        Alumno alumno5 = new Alumno("Cuello", "Jon", 37090900, LocalDate.of(1993, 4, 27), true);
-        alu.guardarAlumno(alumno5);
+//        Alumno alumno1 = new Alumno("Jara", "Gabriel", 34007556, LocalDate.of(1988, 9, 26), true);
+//        alu.guardarAlumno(alumno1);
+//        Alumno alumno2 = new Alumno(2,"Guerrero", "Rodrigo", 23765347, LocalDate.of(2001, 9, 27), true);
+//        alu.guardarAlumno(alumno2);
+//        Alumno alumno3 = new Alumno("Lara", "Santiago", 42942099, LocalDate.of(2002, 4, 12), true);
+//        alu.guardarAlumno(alumno3);
+//        Alumno alumno4 = new Alumno("Herrera", "Franco", 46936302, LocalDate.of(2005, 11, 26), true);
+//        alu.guardarAlumno(alumno4);
+//        Alumno alumno5 = new Alumno("Cuello", "Jon", 37090900, LocalDate.of(1993, 4, 27), true);
+//        alu.guardarAlumno(alumno5);
+//
+//        ArrayList<Alumno> alumnos = new ArrayList();
+//        alumnos = alu.mostrarAlumnos();
+//        System.out.println("");
+//        System.out.println("Lista de alumnos");
+//        System.out.println("");
+//        for (Alumno alumno : alumnos) {
+//            System.out.println(alumno);
+//        }
+//        
+//        
+//        System.out.println("");
+//        System.out.println("Búsqueda de alumno por ID");
+//        System.out.println(alu.buscarAlumnoporID(2)); // MÉTODOS OPCIONALES
+//        System.out.println("");
+//        System.out.println("Busqueda de alumno por DNI");
+//        System.out.println(alu.buscarAlumnoporDNI(34007556)); // MÉTODOS OPCIONALES
+        Materia mat1 = new Materia("Matemática", 1, true);
+        Materia mat2 = new Materia("Lengua", 2, true);
+        Materia mat3 = new Materia("Música", 1, false);
+        Materia mat4 = new Materia("Tecnología", 3, true);
+        Materia mat5 = new Materia(1, "Matemáticas", 2, true);
 
-        ArrayList<Alumno> alumnos = new ArrayList();
-        alumnos = alu.mostrarAlumnos();
-        System.out.println("");
-        System.out.println("Lista de alumnos");
-        System.out.println("");
-        for (Alumno alumno : alumnos) {
-            System.out.println(alumno);
-        }
-        
-        
-        System.out.println("");
-        System.out.println("Búsqueda de alumno por ID");
-        System.out.println(alu.buscarAlumnoporID(2)); // MÉTODOS OPCIONALES
-        System.out.println("");
-        System.out.println("Busqueda de alumno por DNI");
-        System.out.println(alu.buscarAlumnoporDNI(34007556)); // MÉTODOS OPCIONALES
-        
-        
+//        mat.modificarMateria(mat5);
+//        alu.modificarAlumno(alumno2);
+//        mat.guardarMateria(mat1);
+//        mat.guardarMateria(mat2);
+//        mat.guardarMateria(mat3);
+//        mat.guardarMateria(mat4);
+//        mat.eliminarMateria(3);
+//        alu.eliminarAlumno(2);
+//        System.out.println(mat.buscarMateria(2));
+//        System.out.println(mat.mostrarMaterias());
+
         //MÉTODOS CON EL USO DE ESCANNER
 //
 //        Scanner entrada = new Scanner(System.in).useDelimiter("\n");

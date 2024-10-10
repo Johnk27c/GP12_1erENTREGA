@@ -61,7 +61,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jText_apellido = new javax.swing.JTextField();
         jText_nombre = new javax.swing.JTextField();
         jRb_estado = new javax.swing.JRadioButton();
-        jDc_FechaNac = new com.toedter.calendar.JDateChooser();
+        jDc_FechaNac = new org.netbeans.modules.form.InvalidComponent();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Alumno");
@@ -316,7 +316,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBt_guardar;
     private javax.swing.JButton jBt_nuevo;
     private javax.swing.JButton jBt_salir;
-    private com.toedter.calendar.JDateChooser jDc_FechaNac;
+    private org.netbeans.modules.form.InvalidComponent jDc_FechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
