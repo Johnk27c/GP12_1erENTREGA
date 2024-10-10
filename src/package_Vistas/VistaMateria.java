@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package package_Vistas;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+import package_Modelo.Conexion;
+import package_Persistencia.MateriaData;
 
 /**
  *
@@ -10,11 +12,20 @@ package package_Vistas;
  */
 public class VistaMateria extends javax.swing.JInternalFrame {
 
+    private MateriaData matData = new MateriaData();
+    private MateriaData materiaActual = null;
+    private Conexion connection;
+
     /**
      * Creates new form VistaMateria
      */
     public VistaMateria() {
         initComponents();
+
+        jT_codigo1.setEnabled(true);
+        jT_nombre.setEnabled(false);
+        jT_año.setEnabled(false);
+        jRbt_estado.setEnabled(false);
     }
 
     /**
@@ -100,6 +111,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jBt_Eliminar.setText("Eliminar");
 
         jBt_Salir.setText("Salir");
+        jBt_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBt_SalirActionPerformed(evt);
+            }
+        });
 
         jTextField1.setText("jTextField1");
 
@@ -207,16 +223,54 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jT_añoActionPerformed
 
     private void jBt_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_GuardarActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            Integer idMateria = Integer.parseInt(jT_codigo1.getText());
+            String nombre = jT_nombre.getText();
+            Integer año = Integer.parseInt(jT_año.getText());
+            if (idMateria.isEmpty() || nombre.isEmpty() || año.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
+                return;
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un dato válido");
+        }
+        limpiarCampos();
     }//GEN-LAST:event_jBt_GuardarActionPerformed
 
     private void jBt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_NuevoActionPerformed
-        // TODO add your handling code here:
+        jT_codigo1.setEnabled(true);
+        jT_nombre.setEnabled(true);
+        jT_año.setEnabled(true);
+        jRbt_estado.setEnabled(true);
+        limpiarCampos();
     }//GEN-LAST:event_jBt_NuevoActionPerformed
 
     private void jBt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_BuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            Integer idMateria = Integer.parseInt(jT_codigo1.getText());
+            materiaActual = matData.buscarMateria(idMateria);
+            if (materiaActual != null) {
+                jT_nombre.setText(materiaActual.getNombre());
+                jT_año.setText(materiaActual.getAño());
+                jRbt_estado.setSelected(materiaActual.isEstado());
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un código válido");
+        }
     }//GEN-LAST:event_jBt_BuscarActionPerformed
+
+    private void jBt_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_SalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jBt_SalirActionPerformed
+
+    private void limpiarCampos() {
+        jT_codigo1.setText("");
+        jT_nombre.setText("");
+        jT_año.setText("");
+        jRbt_estado.setSelected(true);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
