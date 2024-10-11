@@ -110,6 +110,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         });
 
         jBt_Eliminar.setText("Eliminar");
+        jBt_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBt_EliminarActionPerformed(evt);
+            }
+        });
 
         jBt_Salir.setText("Salir");
         jBt_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -277,6 +282,18 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     private void jBt_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_SalirActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jBt_SalirActionPerformed
+
+    private void jBt_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_EliminarActionPerformed
+         if (materiaActual != null) {
+            matData.eliminarMateria(materiaActual.getIdMateria());
+            materiaActual = null;
+            limpiarCampos();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay una materia seleccionada");
+
+        }
+    }//GEN-LAST:event_jBt_EliminarActionPerformed
 
     private void limpiarCampos() {
         jT_codigo1.setText("");
