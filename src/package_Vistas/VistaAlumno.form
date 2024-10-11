@@ -38,10 +38,12 @@
                               <Component id="jBt_salir" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jDc_FechaNac" pref="109" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
@@ -112,8 +114,9 @@
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jDc_FechaNac" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="56" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jBt_nuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBt_eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -211,6 +214,8 @@
     <Component class="javax.swing.JTextField" name="jText_nombre">
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRb_estado">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDc_FechaNac">
     </Component>
   </SubComponents>
 </Form>
