@@ -15,7 +15,6 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
     private MateriaData matData = new MateriaData();
     private Materia materiaActual = null;
-    
 
     /**
      * Creates new form VistaMateria
@@ -27,6 +26,9 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jT_nombre.setEnabled(false);
         jT_año.setEnabled(false);
         jRbt_estado.setEnabled(false);
+        jBt_Guardar.setEnabled(false);
+        jBt_Eliminar.setEnabled(false);
+
     }
 
     /**
@@ -234,29 +236,38 @@ public class VistaMateria extends javax.swing.JInternalFrame {
             Integer idMateria = Integer.valueOf(jT_codigo1.getText());
             String nombre = jT_nombre.getText();
             Integer año = Integer.valueOf(jT_año.getText());
-            boolean estado= jRbt_estado.isSelected();
-            
+            boolean estado = jRbt_estado.isSelected();
+
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
                 return;
-            }else {
-                if (materiaActual== null) {
-                Materia mate = new Materia(nombre, año, estado);
+            } else {
+                if (materiaActual == null) {
+                    Materia mate = new Materia(nombre, año, estado);
                     matData.guardarMateria(mate);
-                }else {
+                } else {
                     Materia mate = new Materia(idMateria, nombre, año, estado);
                     matData.modificarMateria(mate);
                 }
+                jT_nombre.setEnabled(false);
+                jT_año.setEnabled(false);
+                jRbt_estado.setEnabled(false);
+                jBt_Guardar.setEnabled(false);
+                jBt_Eliminar.setEnabled(false);
+                jT_codigo1.setEnabled(true);
+                limpiarCampos();
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número válido");
         }
-        limpiarCampos();
-        
+
     }//GEN-LAST:event_jBt_GuardarActionPerformed
 
     private void jBt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_NuevoActionPerformed
-        jT_codigo1.setEnabled(true);
+        materiaActual=null;
+        jT_codigo1.setEnabled(false);
+        jBt_Guardar.setEnabled(true);
+        jBt_Eliminar.setEnabled(false);
         jT_nombre.setEnabled(true);
         jT_año.setEnabled(true);
         jRbt_estado.setEnabled(true);
@@ -266,13 +277,17 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
     private void jBt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_BuscarActionPerformed
         try {
+            jBt_Eliminar.setEnabled(true);
+            jBt_Guardar.setEnabled(true);
             Integer idMateria = Integer.valueOf(jT_codigo1.getText());
             materiaActual = matData.buscarMateria(idMateria);
             if (materiaActual != null) {
                 jT_nombre.setText(materiaActual.getNombre());
                 jT_año.setText(String.valueOf(materiaActual.getAnioMateria()));
                 jRbt_estado.setSelected(materiaActual.isActivo());
-            System.out.println(materiaActual);
+                jT_nombre.setEnabled(true);
+                jT_año.setEnabled(true);
+                jRbt_estado.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un código válido");
@@ -280,15 +295,20 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBt_BuscarActionPerformed
 
     private void jBt_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_SalirActionPerformed
-        this.setVisible(false);
+        dispose();
     }//GEN-LAST:event_jBt_SalirActionPerformed
 
     private void jBt_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_EliminarActionPerformed
-         if (materiaActual != null) {
+        if (materiaActual != null) {
             matData.eliminarMateria(materiaActual.getIdMateria());
             materiaActual = null;
             limpiarCampos();
-
+            jT_codigo1.setEnabled(false);
+            jT_nombre.setEnabled(false);
+            jT_año.setEnabled(false);
+            jRbt_estado.setEnabled(false);
+            jBt_Guardar.setEnabled(false);
+            jBt_Eliminar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "No hay una materia seleccionada");
 

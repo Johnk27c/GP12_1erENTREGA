@@ -138,26 +138,24 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jBt_salir))
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(62, 62, 62)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jDc_FechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(62, 62, 62)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jText_nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                            .addComponent(jText_apellido, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jText_documento, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRb_estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jText_nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(jText_apellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jText_documento, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRb_estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(30, 30, 30)
-                                .addComponent(jBt_buscar)))))
+                                .addComponent(jBt_buscar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jDc_FechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(17, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,7 +194,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDc_FechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBt_nuevo)
                             .addComponent(jBt_eliminar)
@@ -215,10 +213,10 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jRb_estado.setEnabled(true);
         jDc_FechaNac.setEnabled(true);
         jBt_nuevo.setEnabled(true);
-        jBt_eliminar.setEnabled(true);
+        jBt_eliminar.setEnabled(false);
         jBt_guardar.setEnabled(true);
         jBt_salir.setEnabled(true);
-        jBt_buscar.setEnabled(true);
+        jBt_buscar.setEnabled(false);
         limpiarCampos();
         alumnoActual = null;
 
@@ -265,22 +263,27 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
             if (nombre.isEmpty() || apellido.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No debe haber campos vacios");
                 return;
-            }
-            java.util.Date sfecha = jDc_FechaNac.getDate();
-            LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Boolean estado = jRb_estado.isSelected();
-            alumnoActual = aluData.buscarAlumnoporDNI(dni);
-            
-            if (alumnoActual == null) {
-                alumnoActual = new Alumno(apellido, nombre, dni, fechaNac, estado);
-                aluData.guardarAlumno(alumnoActual);
-
             } else {
-                alumnoActual.setDni(dni);
-                alumnoActual.setApellido(apellido);
-                alumnoActual.setNombre(nombre);
-                alumnoActual.setFechaNac(fechaNac);
-                aluData.modificarAlumno(alumnoActual);
+                java.util.Date sfecha = jDc_FechaNac.getDate();
+                LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Boolean estado = jRb_estado.isSelected();
+
+                if (alumnoActual == null) {
+                    alumnoActual = new Alumno(apellido, nombre, dni, fechaNac, estado);
+                    aluData.guardarAlumno(alumnoActual);
+
+                } else {
+                    alumnoActual.setDni(dni);
+                    alumnoActual.setApellido(apellido);
+                    alumnoActual.setNombre(nombre);
+                    alumnoActual.setFechaNac(fechaNac);
+                    aluData.modificarAlumno(alumnoActual);
+                }
+                limpiarCampos();
+                jBt_eliminar.setEnabled(false);
+                jBt_guardar.setEnabled(false);
+                jBt_buscar.setEnabled(true);
+
             }
 
         } catch (NumberFormatException nfe) {
@@ -297,10 +300,11 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
             aluData.eliminarAlumno(alumnoActual.getIdAlumno());
             alumnoActual = null;
             limpiarCampos();
-
+            jBt_eliminar.setEnabled(false);
+            jBt_guardar.setEnabled(false);
+            jBt_buscar.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "No hay un alumno seleccionado");
-
         }
     }//GEN-LAST:event_jBt_eliminarActionPerformed
     private void limpiarCampos() {
@@ -308,7 +312,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jText_apellido.setText("");
         jText_nombre.setText("");
         jRb_estado.setSelected(true);
-        jDc_FechaNac.setDate(new Date());
+        jDc_FechaNac.setDate(null);
 
     }
 
