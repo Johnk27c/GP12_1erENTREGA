@@ -4,9 +4,9 @@
  */
 package package_Vistas;
 
-import java.sql.Connection;
+
 import java.util.Locale;
-import package_Modelo.Conexion;
+
 
 /**
  *
@@ -85,9 +85,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu_admin.setText("Administración");
 
         menu_inscripciones.setText("Manejo de Inscripciones");
+        menu_inscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_inscripcionesActionPerformed(evt);
+            }
+        });
         jMenu_admin.add(menu_inscripciones);
 
         menu_notas.setText("Manipulación de Notas");
+        menu_notas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_notasActionPerformed(evt);
+            }
+        });
         jMenu_admin.add(menu_notas);
 
         jMenuBar1.add(jMenu_admin);
@@ -132,7 +142,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_alumnoActionPerformed
 
     private void menu_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_consultaActionPerformed
-        // TODO add your handling code here:
+//        jDesktopPane1.removeAll();
+//        jDesktopPane1.repaint();
+//        VistaListado vistaLista= new VistaListado();
+//        vistaLista.setVisible(true);
+//        jDesktopPane1.add(vistaLista);
     }//GEN-LAST:event_menu_consultaActionPerformed
 
     private void menu_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_materiaActionPerformed
@@ -143,6 +157,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(vistaMateria);
     }//GEN-LAST:event_menu_materiaActionPerformed
 
+    private void menu_inscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_inscripcionesActionPerformed
+//         jDesktopPane1.removeAll();
+//        jDesktopPane1.repaint();
+//        VistaInscripcion vistaIn= new VistaInscripcion();
+//        vistaIn.setVisible(true);
+//        jDesktopPane1.add(vistaIn);
+    }//GEN-LAST:event_menu_inscripcionesActionPerformed
+
+    private void menu_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_notasActionPerformed
+//        jDesktopPane1.removeAll();
+//        jDesktopPane1.repaint();
+//        VistaNotas vistaNota= new VistaNotas();
+//        vistaNota.setVisible(true);
+//        jDesktopPane1.add(vistaNota);
+    }//GEN-LAST:event_menu_notasActionPerformed
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -172,7 +204,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaPrincipal().setVisible(true);
-                Connection con = Conexion.getConexion();
             }
         });
     }
