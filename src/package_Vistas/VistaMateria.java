@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import package_Modelo.Conexion;
+import package_Modelo.Materia;
 import package_Persistencia.MateriaData;
 
 /**
@@ -13,8 +14,8 @@ import package_Persistencia.MateriaData;
 public class VistaMateria extends javax.swing.JInternalFrame {
 
     private MateriaData matData = new MateriaData();
-    private MateriaData materiaActual = null;
-    private Conexion connection;
+    private Materia materiaActual = null;
+    
 
     /**
      * Creates new form VistaMateria
@@ -225,18 +226,28 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     private void jBt_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_GuardarActionPerformed
 
         try {
-            Integer idMateria = Integer.parseInt(jT_codigo1.getText());
+            Integer idMateria = Integer.valueOf(jT_codigo1.getText());
             String nombre = jT_nombre.getText();
-            Integer año = Integer.parseInt(jT_año.getText());
-            if (idMateria.isEmpty() || nombre.isEmpty() || año.isEmpty()) {
+            Integer año = Integer.valueOf(jT_año.getText());
+            boolean estado= jRbt_estado.isSelected();
+            
+            if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
                 return;
+            }else {
+                if (materiaActual== null) {
+                Materia mate = new Materia(nombre, año, estado);
+                    matData.guardarMateria(mate);
+                }else {
+                    Materia mate = new Materia(idMateria, nombre, año, estado);
+                    matData.modificarMateria(mate);
+                }
             }
-
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un dato válido");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número válido");
         }
         limpiarCampos();
+        
     }//GEN-LAST:event_jBt_GuardarActionPerformed
 
     private void jBt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_NuevoActionPerformed
@@ -245,16 +256,18 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jT_año.setEnabled(true);
         jRbt_estado.setEnabled(true);
         limpiarCampos();
+        System.out.println(materiaActual);
     }//GEN-LAST:event_jBt_NuevoActionPerformed
 
     private void jBt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_BuscarActionPerformed
         try {
-            Integer idMateria = Integer.parseInt(jT_codigo1.getText());
+            Integer idMateria = Integer.valueOf(jT_codigo1.getText());
             materiaActual = matData.buscarMateria(idMateria);
             if (materiaActual != null) {
                 jT_nombre.setText(materiaActual.getNombre());
-                jT_año.setText(materiaActual.getAño());
-                jRbt_estado.setSelected(materiaActual.isEstado());
+                jT_año.setText(String.valueOf(materiaActual.getAnioMateria()));
+                jRbt_estado.setSelected(materiaActual.isActivo());
+            System.out.println(materiaActual);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un código válido");
@@ -269,7 +282,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jT_codigo1.setText("");
         jT_nombre.setText("");
         jT_año.setText("");
-        jRbt_estado.setSelected(true);
+        jRbt_estado.setSelected(false);
     }
 
 
