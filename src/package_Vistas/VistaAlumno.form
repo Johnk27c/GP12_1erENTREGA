@@ -211,7 +211,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRb_estado">
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDc_FechaNac">
+    <Component class="org.netbeans.modules.form.InvalidComponent" name="jDc_FechaNac">
     </Component>
   </SubComponents>
 </Form>
