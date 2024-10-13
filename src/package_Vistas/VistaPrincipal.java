@@ -4,9 +4,7 @@
  */
 package package_Vistas;
 
-
 import java.util.Locale;
-
 
 /**
  *
@@ -19,8 +17,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
      */
     public VistaPrincipal() {
         initComponents();
-        
-        
+
     }
 
     /**
@@ -152,29 +149,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void menu_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_materiaActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        VistaMateria vistaMateria= new VistaMateria();
+        VistaMateria vistaMateria = new VistaMateria();
         vistaMateria.setVisible(true);
         jDesktopPane1.add(vistaMateria);
     }//GEN-LAST:event_menu_materiaActionPerformed
 
     private void menu_inscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_inscripcionesActionPerformed
-//         jDesktopPane1.removeAll();
-//        jDesktopPane1.repaint();
-//        VistaInscripcion vistaIn= new VistaInscripcion();
-//        vistaIn.setVisible(true);
-//        jDesktopPane1.add(vistaIn);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaInscripcion vistaIn = new VistaInscripcion();
+        vistaIn.setVisible(true);
+        jDesktopPane1.add(vistaIn);
     }//GEN-LAST:event_menu_inscripcionesActionPerformed
 
     private void menu_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_notasActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        VistaNotas vistaNota= new VistaNotas();
+        VistaNotas vistaNota = new VistaNotas();
         vistaNota.setVisible(true);
         jDesktopPane1.add(vistaNota);
     }//GEN-LAST:event_menu_notasActionPerformed
 
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
