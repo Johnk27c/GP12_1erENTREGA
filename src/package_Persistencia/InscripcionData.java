@@ -190,7 +190,7 @@ public class InscripcionData {
     public List<Alumno> obtenerAlumnosPorMateria(int idMateria){
         ArrayList<Alumno> alumnoMateria=new ArrayList<>();
         String sql = "SELECT a.idAlumno, dni, nombre, apellido, fechaNacimiento, estado "
-                + "FROM inscripcion i, alumno a WHERE i.idAlumno = a.idAlumno AND idMateria = ?"
+                + "FROM inscripcion i, alumno a WHERE i.idAlumno = a.idAlumno AND idMateria = ? "
                 + "AND a.estado = 1";
         try {
             PreparedStatement ps= con.prepareStatement(sql);

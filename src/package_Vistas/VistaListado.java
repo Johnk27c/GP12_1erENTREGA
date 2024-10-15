@@ -6,8 +6,13 @@ package package_Vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 import package_Persistencia.MateriaData;
+import package_Persistencia.AlumnoData;
 import package_Modelo.Materia;
+import package_Modelo.Alumno;
+import package_Persistencia.InscripcionData;
 
 /**
  *
@@ -15,15 +20,29 @@ import package_Modelo.Materia;
  */
 public class VistaListado extends javax.swing.JInternalFrame {
     
-    private List<Materia> listarMaterias;
-
+    ArrayList<Materia> materias = new ArrayList();
+    ArrayList<Alumno> alumnos = new ArrayList();
+    private MateriaData matData = new MateriaData();
+    private AlumnoData almData = new AlumnoData();
+    private InscripcionData inscData= new InscripcionData();
+    
+    private DefaultTableModel model = new DefaultTableModel();
+    
     /**
      * Creates new form VistaListado
      */
     public VistaListado() {
         initComponents();
+        matData = new MateriaData();
+        materias = matData.mostrarMaterias();
+        alumnos = (ArrayList<Alumno>) almData.mostrarAlumnos();
+        model = new DefaultTableModel();
         
         
+        selectMaterias();
+        armarCabeceraTabla();
+        
+      
     }
 
     /**
@@ -38,9 +57,9 @@ public class VistaListado extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jC_Materias = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jB_Salir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel1.setText("LIstado de Alumnos por Materia");
@@ -54,6 +73,13 @@ public class VistaListado extends javax.swing.JInternalFrame {
             }
         });
 
+        jB_Salir.setText("Salir");
+        jB_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_SalirActionPerformed(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -62,55 +88,47 @@ public class VistaListado extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "DNI", "Apellido", "Nombre"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jB_Salir.setText("Salir");
-        jB_Salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jB_SalirActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(jC_Materias, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(155, 155, 155))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jC_Materias, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jB_Salir)
-                .addGap(28, 28, 28))
+                .addGap(0, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jB_Salir))
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jC_Materias, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jC_Materias, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jB_Salir)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,23 +139,55 @@ public class VistaListado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jB_SalirActionPerformed
 
     private void jC_MateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_MateriasActionPerformed
-        selectMaterias();
+        borrarfilaTabla();
+        cargaAlumnos();
     }//GEN-LAST:event_jC_MateriasActionPerformed
 
-    private void selectMaterias(){
-        ArrayList<Materia> listarMaterias = new ArrayList<> ();
-        for (Materia materia : listarMaterias) {
-            jC_Materias.addItem(materia.getNombre() + materia.getAnioMateria() + materia.getIdMateria());
+    private void armarCabeceraTabla(){
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("DNI");
+        filaCabecera.add("Apellido");
+        filaCabecera.add("Nombre");
+        for(Object it: filaCabecera){
+            model.addColumn(it);
         }
-            
+        jTable1.setModel(model);
     }
+    
+    private void borrarfilaTabla() {
+        int indice = model.getRowCount() - 1;
+
+        for (int i = indice; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+   
+    private void cargaAlumnos(){
+        Materia selec = (Materia) jC_Materias.getSelectedItem();
+        System.out.println(selec);
+        alumnos = (ArrayList<Alumno>) inscData.obtenerAlumnosPorMateria(selec.getIdMateria());
+        System.out.println(alumnos);
+        for (Alumno alumno : alumnos){
+            model.addRow(new Object[] {alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()});
+        }
+    }
+     
+    private void selectMaterias(){
+        MateriaData matData = new MateriaData();
+        ArrayList <Materia> listarMaterias = matData.mostrarMaterias();
+        for (Materia materia : listarMaterias) {
+            jC_Materias.addItem(materia);
+        }            
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jB_Salir;
-    private javax.swing.JComboBox<String> jC_Materias;
+    private javax.swing.JComboBox<Materia> jC_Materias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
