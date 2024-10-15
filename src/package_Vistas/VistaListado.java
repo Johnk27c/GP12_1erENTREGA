@@ -16,8 +16,6 @@ import package_Modelo.Materia;
 public class VistaListado extends javax.swing.JInternalFrame {
     
     private List<Materia> listarMaterias;
-    
-    
 
     /**
      * Creates new form VistaListado

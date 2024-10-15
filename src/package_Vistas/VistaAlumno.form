@@ -57,8 +57,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jDc_FechaNac" min="-2" pref="168" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jDc_FechaNac" min="-2" pref="161" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -112,7 +112,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jDc_FechaNac" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jBt_nuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBt_eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -211,7 +211,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRb_estado">
     </Component>
-    <Component class="org.netbeans.modules.form.InvalidComponent" name="jDc_FechaNac">
+    <Component class="com.toedter.calendar.JDateChooser" name="jDc_FechaNac">
     </Component>
   </SubComponents>
 </Form>

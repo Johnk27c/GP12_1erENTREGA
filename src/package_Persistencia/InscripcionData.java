@@ -47,7 +47,7 @@ public class InscripcionData {
         }
         
         
-    }
+    }//Chequeado
     
     public void actualizarNota(int idAlumno, int idMateria, double nota){
         
@@ -69,7 +69,7 @@ public class InscripcionData {
         JOptionPane.showMessageDialog(null, "Error al actualizar nota");        }
     }
     
-    public void borrarInscripcionMateria(int idAlumno, int idMateria){
+    public void borrarInscripcion(int idAlumno, int idMateria){
         String sql= "DELETE FROM inscripcion WHERE idAlumno= ? AND idMateria = ?";
         
         try {
@@ -87,7 +87,7 @@ public class InscripcionData {
              JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla inscripcion");  
         }
         
-    }
+    } //Chequeado
     
     public List<Inscripcion> obtenerInscripciones(){
         ArrayList <Inscripcion> cursada= new ArrayList<>();  
@@ -140,8 +140,8 @@ public class InscripcionData {
      
     public List<Materia> obtenerMateriasCursadas(int idAlumno){
          ArrayList<Materia> materias=new ArrayList<>();
-         String sql = "SELECT inscripcion, idMateria, nombre, año FROM inscripcion, "
-                 + "materia WHERE inscripcion.idMateria = materia.idMateria AND inscripcion.idAlumno = ?";
+         String sql = "SELECT materia.idMateria, nombre, anioMateria FROM inscripcion, "
+                 + "materia WHERE inscripcion.idMateria = materia.idMateria AND inscripcion.idAlumno = ? ";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
@@ -152,7 +152,7 @@ public class InscripcionData {
                 Materia materia =new Materia();
                 materia.setIdMateria(res.getInt("idMateria"));
                 materia.setNombre(res.getNString("nombre"));
-                materia.setAnioMateria(res.getInt("año"));
+                materia.setAnioMateria(res.getInt("anioMateria"));
                 materias.add(materia);
                 
             }
@@ -161,12 +161,12 @@ public class InscripcionData {
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion"); 
      }
         return materias;
-}
+}//Chequeado
      
-    public List<Materia> obtenerMateriasNoCursadas(int idAlumno){
+    public List<Materia> obtenerMateriasNOCursadas(int idAlumno){
          ArrayList<Materia> materias=new ArrayList<>();
-         String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria not in "
-                 + "(SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
+         String sql = "SELECT * FROM materia WHERE activo = 1 AND idMateria not in "
+                 + "(SELECT idMateria FROM inscripcion WHERE idAlumno = ? )";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
@@ -177,7 +177,7 @@ public class InscripcionData {
                 Materia materia =new Materia();
                 materia.setIdMateria(res.getInt("idMateria"));
                 materia.setNombre(res.getNString("nombre"));
-                materia.setAnioMateria(res.getInt("año"));
+                materia.setAnioMateria(res.getInt("anioMateria"));
                 materias.add(materia);
             }
             ps.close();
@@ -185,7 +185,7 @@ public class InscripcionData {
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion"); 
      }
         return materias;
- }
+ }//Chequeado
  
     public List<Alumno> obtenerAlumnosPorMateria(int idMateria){
         ArrayList<Alumno> alumnoMateria=new ArrayList<>();

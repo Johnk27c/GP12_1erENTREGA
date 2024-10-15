@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import package_Modelo.Alumno;
+import package_Modelo.Inscripcion;
 import package_Modelo.Materia;
 import package_Persistencia.AlumnoData;
+import package_Persistencia.InscripcionData;
 import package_Persistencia.MateriaData;
 
 /**
@@ -17,9 +19,9 @@ public class VistaInscripcion extends javax.swing.JFrame {
     ArrayList<Materia> materias = new ArrayList();
     ArrayList<Alumno> alumnos = new ArrayList();
     private DefaultTableModel modelo = new DefaultTableModel();
-//    private InscripcionData inscData;
-    private MateriaData mData;
-    private AlumnoData aData;
+    private MateriaData mData = new MateriaData();
+    private AlumnoData aData = new AlumnoData();
+    private InscripcionData inscData= new InscripcionData();
 
     /**
      * Creates new form VistaInscripcion
@@ -27,13 +29,10 @@ public class VistaInscripcion extends javax.swing.JFrame {
     public VistaInscripcion() {
         initComponents();
 
-        aData = new AlumnoData();
         alumnos = (ArrayList<Alumno>) aData.mostrarAlumnos();
         modelo = new DefaultTableModel();
         cargarCbx();// carga los alumnos
         armarCabecera();
-//        inscData= new InscripcionData();
-        mData = new MateriaData();
 
     }
 

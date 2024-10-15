@@ -139,11 +139,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_alumnoActionPerformed
 
     private void menu_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_consultaActionPerformed
-//        jDesktopPane1.removeAll();
-//        jDesktopPane1.repaint();
-//        VistaListado vistaLista= new VistaListado();
-//        vistaLista.setVisible(true);
-//        jDesktopPane1.add(vistaLista);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaListado vistaLista= new VistaListado();
+        vistaLista.setVisible(true);
+        jDesktopPane1.add(vistaLista);
     }//GEN-LAST:event_menu_consultaActionPerformed
 
     private void menu_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_materiaActionPerformed

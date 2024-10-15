@@ -61,7 +61,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jText_apellido = new javax.swing.JTextField();
         jText_nombre = new javax.swing.JTextField();
         jRb_estado = new javax.swing.JRadioButton();
-        jDc_FechaNac = new org.netbeans.modules.form.InvalidComponent();
+        jDc_FechaNac = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Alumno");
@@ -154,8 +154,8 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDc_FechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDc_FechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(17, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -194,7 +194,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDc_FechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBt_nuevo)
                             .addComponent(jBt_eliminar)
@@ -322,7 +322,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBt_guardar;
     private javax.swing.JButton jBt_nuevo;
     private javax.swing.JButton jBt_salir;
-    private org.netbeans.modules.form.InvalidComponent jDc_FechaNac;
+    private com.toedter.calendar.JDateChooser jDc_FechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
