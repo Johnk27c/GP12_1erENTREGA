@@ -5,8 +5,15 @@
 package package_Vistas;
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import package_Modelo.Alumno;
+import package_Modelo.Inscripcion;
+import package_Modelo.Materia;
 import package_Persistencia.AlumnoData;
+import package_Persistencia.InscripcionData;
+import package_Persistencia.MateriaData;
 
 /**
  *
@@ -14,11 +21,20 @@ import package_Persistencia.AlumnoData;
  */
 public class VistaNotas extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VistaNotas
-     */
+    ArrayList<Materia> materias = new ArrayList();
+    ArrayList<Alumno> alumnos = new ArrayList();
+    private MateriaData matData = new MateriaData();
+    private AlumnoData almData = new AlumnoData();
+    private InscripcionData inscData = new InscripcionData();
+
+    private DefaultTableModel modelo = new DefaultTableModel();
+
     public VistaNotas() {
         initComponents();
+        matData = new MateriaData();
+        materias = matData.mostrarMaterias();
+        alumnos = (ArrayList<Alumno>) almData.mostrarAlumnos();
+        armarCabecera();
         cargarAlumnos();
     }
 
@@ -45,6 +61,11 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         jLabel2.setText("Seleccione un alumno:");
 
         jB_guardar.setText("Guardar");
+        jB_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_guardarActionPerformed(evt);
+            }
+        });
 
         jB_salir.setText("Salir");
         jB_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +99,21 @@ public class VistaNotas extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jT_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jT_tablaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jT_tabla);
@@ -132,17 +165,38 @@ public class VistaNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jC_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_alumnoActionPerformed
-       cargarAlumnos();
+        int dniSeleccionado = obtenerDNISeleccionado();
+        Alumno alumno = almData.buscarAlumnoporDNI(dniSeleccionado);
+        if (alumno != null) {
+            cargarMaterias(alumno);
+        }
     }//GEN-LAST:event_jC_alumnoActionPerformed
 
     private void jB_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_salirActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_jB_salirActionPerformed
 
     private void jC_alumnoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jC_alumnoComponentAdded
-       
+
     }//GEN-LAST:event_jC_alumnoComponentAdded
 
+    private void jB_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_guardarActionPerformed
+        for (int i = 0; i < jT_tabla.getRowCount(); i++) {
+            int idMateria = (Integer) jT_tabla.getValueAt(i, 0);
+            String notaString = jT_tabla.getValueAt(i, 2).toString();
+            Double nuevaNota = Double.parseDouble(notaString);
+            int dniSeleccionado = obtenerDNISeleccionado();
+            Alumno alumno = almData.buscarAlumnoporDNI(dniSeleccionado);
+            if (alumno != null) {
+                inscData.actualizarNota(alumno.getIdAlumno(), idMateria, nuevaNota);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Notas guardadas correctamente");
+    }//GEN-LAST:event_jB_guardarActionPerformed
+
+    private void jT_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jT_tablaMouseClicked
+ 
+    }//GEN-LAST:event_jT_tablaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jB_guardar;
@@ -154,12 +208,40 @@ public class VistaNotas extends javax.swing.JInternalFrame {
     private javax.swing.JTable jT_tabla;
     // End of variables declaration//GEN-END:variables
 
-private void cargarAlumnos() {
-   AlumnoData alumData = new AlumnoData();
-        ArrayList <Alumno> ListaAlumnos = alumData.mostrarAlumnos();
-        for (Alumno alumno : ListaAlumnos) {
-            jC_alumno.addItem(alumno.getDni()+","+(alumno.getApellido()+","+(alumno.getNombre()+"")));
+    private void cargarAlumnos() {
+        AlumnoData alumData = new AlumnoData();
+        ArrayList<Alumno> listaAlumnos = alumData.mostrarAlumnos();
+        jC_alumno.removeAllItems();
+        for (Alumno alumno : listaAlumnos) {
+            String descripcionAlumno = alumno.getDni() + ", " + alumno.getApellido() + ", " + alumno.getNombre();
+            jC_alumno.addItem(descripcionAlumno);
         }
-
-}
+    }
+    private void armarCabecera() {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nota");
+        jT_tabla.setModel(modelo);
+    }
+    private void cargarMaterias(Alumno alumno) {
+        InscripcionData inscripcionData = new InscripcionData();
+        ArrayList<Inscripcion> inscripciones = (ArrayList<Inscripcion>) inscripcionData.obtenerInscripcionesPorAlumno(alumno.getIdAlumno());
+        DefaultTableModel modelo = (DefaultTableModel) jT_tabla.getModel();
+        modelo.setRowCount(0);
+        for (Inscripcion inscripcion : inscripciones) {
+            modelo.addRow(new Object[]{
+                inscripcion.getMateria().getIdMateria(),
+                inscripcion.getMateria().getNombre(),
+                inscripcion.getNota()
+            });
+        }
+    }
+    private int obtenerDNISeleccionado() {
+        String seleccion = (String) jC_alumno.getSelectedItem();
+        if (seleccion != null) {
+            String[] partes = seleccion.split(",");
+            return Integer.parseInt(partes[0].trim());
+        }
+        return -1;
+    }
 }
