@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package package_Vistas;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import package_Persistencia.MateriaData;
@@ -19,15 +14,15 @@ import package_Persistencia.InscripcionData;
  * @author Franco
  */
 public class VistaListado extends javax.swing.JInternalFrame {
-    
+
     ArrayList<Materia> materias = new ArrayList();
     ArrayList<Alumno> alumnos = new ArrayList();
     private MateriaData matData = new MateriaData();
     private AlumnoData almData = new AlumnoData();
-    private InscripcionData inscData= new InscripcionData();
-    
+    private InscripcionData inscData = new InscripcionData();
+
     private DefaultTableModel model = new DefaultTableModel();
-    
+
     /**
      * Creates new form VistaListado
      */
@@ -37,12 +32,8 @@ public class VistaListado extends javax.swing.JInternalFrame {
         materias = matData.mostrarMaterias();
         alumnos = (ArrayList<Alumno>) almData.mostrarAlumnos();
         model = new DefaultTableModel();
-        
-        
         selectMaterias();
         armarCabeceraTabla();
-        
-      
     }
 
     /**
@@ -143,18 +134,18 @@ public class VistaListado extends javax.swing.JInternalFrame {
         cargaAlumnos();
     }//GEN-LAST:event_jC_MateriasActionPerformed
 
-    private void armarCabeceraTabla(){
+    private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("ID");
         filaCabecera.add("DNI");
         filaCabecera.add("Apellido");
         filaCabecera.add("Nombre");
-        for(Object it: filaCabecera){
+        for (Object it : filaCabecera) {
             model.addColumn(it);
         }
         jTable1.setModel(model);
     }
-    
+
     private void borrarfilaTabla() {
         int indice = model.getRowCount() - 1;
 
@@ -162,25 +153,23 @@ public class VistaListado extends javax.swing.JInternalFrame {
             model.removeRow(i);
         }
     }
-   
-    private void cargaAlumnos(){
+
+    private void cargaAlumnos() {
         Materia selec = (Materia) jC_Materias.getSelectedItem();
-        System.out.println(selec);
         alumnos = (ArrayList<Alumno>) inscData.obtenerAlumnosPorMateria(selec.getIdMateria());
-        System.out.println(alumnos);
-        for (Alumno alumno : alumnos){
-            model.addRow(new Object[] {alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()});
+        for (Alumno alumno : alumnos) {
+            model.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()});
         }
     }
-     
-    private void selectMaterias(){
+
+    private void selectMaterias() {
         MateriaData matData = new MateriaData();
-        ArrayList <Materia> listarMaterias = matData.mostrarMaterias();
+        ArrayList<Materia> listarMaterias = matData.mostrarMaterias();
         for (Materia materia : listarMaterias) {
             jC_Materias.addItem(materia);
-        }            
+        }
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jB_Salir;

@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package package_Vistas;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import package_Modelo.Alumno;
 import package_Persistencia.AlumnoData;
@@ -258,6 +253,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     private void jBt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_guardarActionPerformed
         try {
             int dni = Integer.valueOf(jText_documento.getText());
+            Alumno alumnoActual = aluData.buscarAlumnoporDNI(dni);
             String nombre = jText_nombre.getText();
             String apellido = jText_apellido.getText();
             if (nombre.isEmpty() || apellido.isEmpty()) {
@@ -273,11 +269,16 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                     aluData.guardarAlumno(alumnoActual);
 
                 } else {
+                    int resp = JOptionPane.showConfirmDialog(this, "Existe un registro con el DNI indicado, ¿desea modificar los datos?");
+                    if (resp == 0){
                     alumnoActual.setDni(dni);
                     alumnoActual.setApellido(apellido);
                     alumnoActual.setNombre(nombre);
                     alumnoActual.setFechaNac(fechaNac);
-                    aluData.modificarAlumno(alumnoActual);
+                    aluData.modificarAlumno(alumnoActual);                        
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se modificaron los datos");
+                    }
                 }
                 limpiarCampos();
                 jBt_eliminar.setEnabled(false);
@@ -287,7 +288,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Debe ingrresar un DNI valido");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI valido");
         }
     }//GEN-LAST:event_jBt_guardarActionPerformed
 

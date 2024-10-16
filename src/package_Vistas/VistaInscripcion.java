@@ -126,13 +126,16 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jBt_inscribir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jBt_inscribir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(172, 172, 172)
+                                    .addComponent(jBt_anular, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(67, 67, 67)
+                                    .addComponent(jBt_salir))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jRbt_materiasinscriptas)
                                     .addGap(74, 74, 74)
@@ -141,16 +144,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2)
                                     .addGap(88, 88, 88)
                                     .addComponent(jCbx_alumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(164, 164, 164)
-                                    .addComponent(jBt_anular, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(67, 67, 67)
-                                    .addComponent(jBt_salir)))))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(198, 198, 198)
                         .addComponent(jLabel3)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,11 +167,12 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                     .addComponent(jRbt_materiasnoinscriptas))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBt_inscribir)
                     .addComponent(jBt_anular)
-                    .addComponent(jBt_salir)))
+                    .addComponent(jBt_salir))
+                .addGap(18, 18, 18))
         );
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -206,7 +205,9 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCbx_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbx_alumnosActionPerformed
-        // TODO add your handling code here:
+        borrarfilaTabla();
+        jRbt_materiasnoinscriptas.setSelected(false);
+        jRbt_materiasinscriptas.setSelected(false);
     }//GEN-LAST:event_jCbx_alumnosActionPerformed
 
     private void jRbt_materiasinscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbt_materiasinscriptasActionPerformed

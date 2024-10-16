@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package package_Vistas;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import package_Modelo.Alumno;
@@ -24,18 +19,25 @@ public class VistaNotas extends javax.swing.JInternalFrame {
     ArrayList<Materia> materias = new ArrayList();
     ArrayList<Alumno> alumnos = new ArrayList();
     private MateriaData matData = new MateriaData();
-    private AlumnoData almData = new AlumnoData();
+    private AlumnoData alumData = new AlumnoData();
     private InscripcionData inscData = new InscripcionData();
 
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     public VistaNotas() {
         initComponents();
         matData = new MateriaData();
         materias = matData.mostrarMaterias();
-        alumnos = (ArrayList<Alumno>) almData.mostrarAlumnos();
+        alumnos = (ArrayList<Alumno>) alumData.mostrarAlumnos();
         armarCabecera();
         cargarAlumnos();
+        jB_guardar.setEnabled(false);
+        jTxt_nota.setVisible(false);
     }
 
     /**
@@ -54,6 +56,15 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         jC_alumno = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jT_tabla = new javax.swing.JTable();
+        jB_modificar = new javax.swing.JButton();
+        jTxt_nota = new javax.swing.JTextField();
+        jLbl_mensaje = new javax.swing.JLabel();
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Carga de Notas");
@@ -74,11 +85,6 @@ public class VistaNotas extends javax.swing.JInternalFrame {
             }
         });
 
-        jC_alumno.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                jC_alumnoComponentAdded(evt);
-            }
-        });
         jC_alumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jC_alumnoActionPerformed(evt);
@@ -111,6 +117,7 @@ public class VistaNotas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jT_tabla.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jT_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jT_tablaMouseClicked(evt);
@@ -118,16 +125,17 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jT_tabla);
 
+        jB_modificar.setText("Modificar Nota");
+        jB_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_modificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jB_guardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jB_salir)
-                .addGap(88, 88, 88))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,6 +151,20 @@ public class VistaNotas extends javax.swing.JInternalFrame {
                         .addGap(40, 40, 40)
                         .addComponent(jC_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jB_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jB_guardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jB_salir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLbl_mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxt_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,11 +175,16 @@ public class VistaNotas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jC_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTxt_nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jB_guardar)
-                    .addComponent(jB_salir))
+                    .addComponent(jB_salir)
+                    .addComponent(jB_modificar))
                 .addGap(26, 26, 26))
         );
 
@@ -166,7 +193,7 @@ public class VistaNotas extends javax.swing.JInternalFrame {
 
     private void jC_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_alumnoActionPerformed
         int dniSeleccionado = obtenerDNISeleccionado();
-        Alumno alumno = almData.buscarAlumnoporDNI(dniSeleccionado);
+        Alumno alumno = alumData.buscarAlumnoporDNI(dniSeleccionado);
         if (alumno != null) {
             cargarMaterias(alumno);
         }
@@ -176,56 +203,90 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jB_salirActionPerformed
 
-    private void jC_alumnoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jC_alumnoComponentAdded
-
-    }//GEN-LAST:event_jC_alumnoComponentAdded
-
     private void jB_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_guardarActionPerformed
-        for (int i = 0; i < jT_tabla.getRowCount(); i++) {
-            int idMateria = (Integer) jT_tabla.getValueAt(i, 0);
-            String notaString = jT_tabla.getValueAt(i, 2).toString();
-            Double nuevaNota = Double.parseDouble(notaString);
-            int dniSeleccionado = obtenerDNISeleccionado();
-            Alumno alumno = almData.buscarAlumnoporDNI(dniSeleccionado);
-            if (alumno != null) {
-                inscData.actualizarNota(alumno.getIdAlumno(), idMateria, nuevaNota);
+        int filaSeleccionada = jT_tabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccionar la fila que desea actualizar");
+        } else {
+            try {
+                Double nuevaNota = Double.parseDouble(jTxt_nota.getText());
+                int idMateria = (Integer) jT_tabla.getValueAt(filaSeleccionada, 0);
+                int dniSeleccionado = obtenerDNISeleccionado();
+                Alumno alumno = alumData.buscarAlumnoporDNI(dniSeleccionado);
+                if (alumno != null && nuevaNota > 0 && nuevaNota <= 10) {
+                    inscData.actualizarNota(alumno.getIdAlumno(), idMateria, nuevaNota);
+                    jTxt_nota.setVisible(false);
+                    jTxt_nota.setText("");
+                    jB_modificar.setEnabled(true);
+                    jB_guardar.setEnabled(false);
+                    jLbl_mensaje.setText("");
+                    cargarMaterias(alumno);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se modificó la nota: el valor indicado debe tener un valor entre 0 y 10.");
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número válido");
             }
         }
-        JOptionPane.showMessageDialog(null, "Notas guardadas correctamente");
     }//GEN-LAST:event_jB_guardarActionPerformed
 
     private void jT_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jT_tablaMouseClicked
- 
+        jTxt_nota.setVisible(false);
+        jTxt_nota.setText("");
+        jB_modificar.setEnabled(true);
+        jB_guardar.setEnabled(false);
+        jLbl_mensaje.setText("");
     }//GEN-LAST:event_jT_tablaMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        jT_tabla.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jB_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_modificarActionPerformed
+        int filaSel = jT_tabla.getSelectedRow();
+        if (filaSel == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccionar la fila que desea actualizar");
+        } else {
+            jB_modificar.setEnabled(false);
+            jTxt_nota.setVisible(true);
+            jB_guardar.setEnabled(true);
+            String nombreMat = (String) jT_tabla.getValueAt(filaSel, 1);
+            jLbl_mensaje.setText("Ingrese la nota para " + nombreMat + ":");
+        }
+    }//GEN-LAST:event_jB_modificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jB_guardar;
+    private javax.swing.JButton jB_modificar;
     private javax.swing.JButton jB_salir;
-    private javax.swing.JComboBox<String> jC_alumno;
+    private javax.swing.JComboBox<Alumno> jC_alumno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLbl_mensaje;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jT_tabla;
+    private javax.swing.JTextField jTxt_nota;
     // End of variables declaration//GEN-END:variables
 
     private void cargarAlumnos() {
-        AlumnoData alumData = new AlumnoData();
         ArrayList<Alumno> listaAlumnos = alumData.mostrarAlumnos();
         jC_alumno.removeAllItems();
         for (Alumno alumno : listaAlumnos) {
-            String descripcionAlumno = alumno.getDni() + ", " + alumno.getApellido() + ", " + alumno.getNombre();
-            jC_alumno.addItem(descripcionAlumno);
+            jC_alumno.addItem(alumno);
         }
     }
+
     private void armarCabecera() {
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
         modelo.addColumn("Nota");
         jT_tabla.setModel(modelo);
     }
+
     private void cargarMaterias(Alumno alumno) {
-        InscripcionData inscripcionData = new InscripcionData();
-        ArrayList<Inscripcion> inscripciones = (ArrayList<Inscripcion>) inscripcionData.obtenerInscripcionesPorAlumno(alumno.getIdAlumno());
+        ArrayList<Inscripcion> inscripciones = (ArrayList<Inscripcion>) inscData.obtenerInscripcionesPorAlumno(alumno.getIdAlumno());
         DefaultTableModel modelo = (DefaultTableModel) jT_tabla.getModel();
         modelo.setRowCount(0);
         for (Inscripcion inscripcion : inscripciones) {
@@ -236,11 +297,11 @@ public class VistaNotas extends javax.swing.JInternalFrame {
             });
         }
     }
+
     private int obtenerDNISeleccionado() {
-        String seleccion = (String) jC_alumno.getSelectedItem();
-        if (seleccion != null) {
-            String[] partes = seleccion.split(",");
-            return Integer.parseInt(partes[0].trim());
+        Alumno alumnoSeleccionado = (Alumno) jC_alumno.getSelectedItem();
+        if (alumnoSeleccionado != null) {
+            return alumnoSeleccionado.getDni();
         }
         return -1;
     }

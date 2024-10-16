@@ -1,9 +1,6 @@
 package package_Vistas;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import javax.swing.JOptionPane;
-import package_Modelo.Conexion;
 import package_Modelo.Materia;
 import package_Persistencia.MateriaData;
 
@@ -28,7 +25,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jRbt_estado.setEnabled(false);
         jBt_Guardar.setEnabled(false);
         jBt_Eliminar.setEnabled(false);
-
+        dBt_Descartar.setEnabled(false);
     }
 
     /**
@@ -56,6 +53,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         jBt_Salir = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jRbt_estado = new javax.swing.JRadioButton();
+        dBt_Descartar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Materia");
@@ -71,24 +69,6 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel5.setText("Estado:");
-
-        jT_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jT_nombreActionPerformed(evt);
-            }
-        });
-
-        jT_codigo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jT_codigo1ActionPerformed(evt);
-            }
-        });
-
-        jT_año.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jT_añoActionPerformed(evt);
-            }
-        });
 
         jBt_Nuevo.setText("Nuevo");
         jBt_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +107,13 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
         jTextField1.setText("jTextField1");
 
+        dBt_Descartar.setText("Descartar");
+        dBt_Descartar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dBt_DescartarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,7 +144,9 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jBt_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jBt_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dBt_Descartar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBt_Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addComponent(jBt_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38))
@@ -180,11 +169,17 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jT_año, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jRbt_estado))
-                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jRbt_estado))
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dBt_Descartar)
+                        .addGap(37, 37, 37)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBt_Nuevo)
                     .addComponent(jBt_Guardar)
@@ -218,22 +213,9 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jT_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jT_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jT_nombreActionPerformed
-
-    private void jT_codigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jT_codigo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jT_codigo1ActionPerformed
-
-    private void jT_añoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jT_añoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jT_añoActionPerformed
-
     private void jBt_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_GuardarActionPerformed
 
         try {
-            Integer idMateria = Integer.valueOf(jT_codigo1.getText());
             String nombre = jT_nombre.getText();
             Integer año = Integer.valueOf(jT_año.getText());
             boolean estado = jRbt_estado.isSelected();
@@ -246,6 +228,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
                     Materia mate = new Materia(nombre, año, estado);
                     matData.guardarMateria(mate);
                 } else {
+                    Integer idMateria = Integer.valueOf(jT_codigo1.getText());
                     Materia mate = new Materia(idMateria, nombre, año, estado);
                     matData.modificarMateria(mate);
                 }
@@ -264,7 +247,8 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBt_GuardarActionPerformed
 
     private void jBt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_NuevoActionPerformed
-        materiaActual=null;
+        materiaActual = null;
+        dBt_Descartar.setEnabled(true);
         jT_codigo1.setEnabled(false);
         jBt_Guardar.setEnabled(true);
         jBt_Eliminar.setEnabled(false);
@@ -315,6 +299,17 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBt_EliminarActionPerformed
 
+    private void dBt_DescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dBt_DescartarActionPerformed
+        jT_codigo1.setEnabled(true);
+        jT_nombre.setEnabled(false);
+        jT_año.setEnabled(false);
+        jRbt_estado.setEnabled(false);
+        jBt_Guardar.setEnabled(false);
+        jBt_Eliminar.setEnabled(false);
+        dBt_Descartar.setEnabled(false);
+        limpiarCampos();
+    }//GEN-LAST:event_dBt_DescartarActionPerformed
+
     private void limpiarCampos() {
         jT_codigo1.setText("");
         jT_nombre.setText("");
@@ -324,6 +319,7 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dBt_Descartar;
     private javax.swing.JButton jBt_Buscar;
     private javax.swing.JButton jBt_Eliminar;
     private javax.swing.JButton jBt_Guardar;

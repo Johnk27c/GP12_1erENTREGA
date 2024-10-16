@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import package_Modelo.Alumno;
 import package_Modelo.Conexion;
@@ -201,6 +199,7 @@ public class InscripcionData {
             while(res.next()){
                 Alumno alum=new Alumno();
                 alum.setIdAlumno(res.getInt("idAlumno"));
+                alum.setDni(res.getInt("dni"));
                 alum.setApellido(res.getString("apellido"));
                 alum.setNombre(res.getString("nombre"));
                 alum.setFechaNac(res.getDate("fechaNacimiento").toLocalDate());

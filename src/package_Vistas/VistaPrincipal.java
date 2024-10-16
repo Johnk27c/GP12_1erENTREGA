@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package package_Vistas;
-
-import java.util.Locale;
 
 /**
  *
@@ -128,6 +122,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_alumnoActionPerformed
