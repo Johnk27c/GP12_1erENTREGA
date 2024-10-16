@@ -106,6 +106,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_consultas);
 
         jMenu_salir.setText("Salir");
+        jMenu_salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu_salirMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu_salir);
 
         setJMenuBar(jMenuBar1);
@@ -164,6 +169,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         vistaNota.setVisible(true);
         jDesktopPane1.add(vistaNota);
     }//GEN-LAST:event_menu_notasActionPerformed
+
+    private void jMenu_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu_salirMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jMenu_salirMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
