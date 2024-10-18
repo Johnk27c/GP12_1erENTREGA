@@ -33,6 +33,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         cargarCbx();// carga los alumnos
         armarCabecera();
+        jBt_anular.setEnabled(false);
+        jBt_inscribir.setEnabled(false);
     }
 
     /**
@@ -208,6 +210,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         borrarfilaTabla();
         jRbt_materiasnoinscriptas.setSelected(false);
         jRbt_materiasinscriptas.setSelected(false);
+        jBt_anular.setEnabled(false);
+        jBt_inscribir.setEnabled(false);
     }//GEN-LAST:event_jCbx_alumnosActionPerformed
 
     private void jRbt_materiasinscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbt_materiasinscriptasActionPerformed
@@ -239,6 +243,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             Inscripcion inscripcion= new Inscripcion (a, m,0);
             inscData.guardarInscripcion(inscripcion);
             borrarfilaTabla();
+            cargarMateriasNOInscriptas();
+            jRbt_materiasnoinscriptas.setSelected(true);
         }
     }//GEN-LAST:event_jBt_inscribirActionPerformed
 
@@ -249,6 +255,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             int idMateria=(Integer)modelo.getValueAt(filaSeleccionada, 0);
             inscData.borrarInscripcion(a.getIdAlumno(),idMateria);
             borrarfilaTabla();
+            cargarMateriasInscriptas();
+            jRbt_materiasinscriptas.setSelected(true);
         } else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la tabla.");
         }

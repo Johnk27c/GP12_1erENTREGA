@@ -197,6 +197,11 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         if (alumno != null) {
             cargarMaterias(alumno);
         }
+        jB_modificar.setEnabled(true);
+        jB_guardar.setEnabled(false);
+        jLbl_mensaje.setText("");
+        jTxt_nota.setVisible(false);
+        jTxt_nota.setText("");
     }//GEN-LAST:event_jC_alumnoActionPerformed
 
     private void jB_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_salirActionPerformed
